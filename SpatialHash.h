@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef SPATIALHASH_H
-#define SPATIALHASH_H
+#ifndef SHASH_H
+#define SHASH_H
 
 #include <vector>
 #include <cmath>
@@ -228,6 +228,8 @@ namespace shash
             std::vector<Value> data;
         };
 
+        SpatialHash();
+
         SpatialHash(
             real cell_size,
             unsigned int table_size);
@@ -301,6 +303,14 @@ namespace shash
 
         std::vector<HashBucket> _hash_table;
     };
+
+    template <typename Value, typename HashFunction, typename ReduceFunction, size_t REHASH_ROUNDS>
+    SpatialHash<Value, HashFunction, ReduceFunction, REHASH_ROUNDS>::SpatialHash()
+        : _inv_cell_size(1.0 / 1.0),
+          _table_size(1024)
+    {
+        _hash_table.resize(_table_size, HashBucket());
+    }
 
     template <typename Value, typename HashFunction, typename ReduceFunction, size_t REHASH_ROUNDS>
     SpatialHash<Value, HashFunction, ReduceFunction, REHASH_ROUNDS>::SpatialHash(
