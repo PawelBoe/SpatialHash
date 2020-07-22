@@ -293,7 +293,7 @@ namespace shash
             int salt = 0);
 
         //private:
-        int cell(real coordinate);
+        int cell(real coordinate) const;
         HashBucket *get_bucket(int x, int y, int salt);
 
     private:
@@ -516,7 +516,7 @@ namespace shash
     }
 
     template <typename Value, typename HashFunction, typename ReduceFunction, size_t REHASH_ROUNDS>
-    int SpatialHash<Value, HashFunction, ReduceFunction, REHASH_ROUNDS>::cell(real coordinate)
+    int SpatialHash<Value, HashFunction, ReduceFunction, REHASH_ROUNDS>::cell(real coordinate) const
     {
         return std::floor(coordinate * _inv_cell_size);
     }
